@@ -4,6 +4,7 @@ require('dotenv').config();
 const { generateFile } = require('./cppfileGenerator');
 const { inputFile }  = require('./inputfileGenerator') 
 const { fileExecutor  } = require('./cppfileExecutor');
+const { executePy } = require('./executePy');
 const app = express();
 
 
@@ -27,8 +28,11 @@ app.post('/compile', async (req,res) => {
 
     let output = "compilation Error";
     try
-    {
+    {   
+        if(language === 'cpp')
         output = await fileExecutor({filepath , inputPath}); 
+        if(language === 'py')
+        output = await executePy({filepath , inputPath}); 
     }
     catch(error) {
        console.log(error);
