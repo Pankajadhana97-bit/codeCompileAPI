@@ -15,7 +15,7 @@ const executeJava = async ({filepath , inputPath}) => {
 
   return new Promise((resolve, reject) => 
   {
-    exec(`javac --source-path src -d bin ${outputPath} ${filepath} && java -cp bin ${jobId} < ${ inputPath }`,(error, stdout, stderr) => {
+    exec(`javac -d ${outputPath} ${filepath} && java -cp ${jobId} < ${ inputPath }`,(error, stdout, stderr) => {
         error && reject({ error, stderr });
         stderr && reject(stderr);
         resolve(stdout);
